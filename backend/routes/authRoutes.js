@@ -1,9 +1,19 @@
 import express from "express";
 import { loginUser, registerUser } from "../controllers/authController.js";
+import authMiddleware from "../middleware/authMiddleware.js";
+
 
 const router = express.Router();
 
 router.post("/register", registerUser);
 router.post("/login", loginUser);
+router.get("/profile", authMiddleware,
+    (req, res) => {
+        res.json({
+            message: "Protected Route Accessed",
+            user: req.user,
+        });
+    }
+);
 
 export default router;
