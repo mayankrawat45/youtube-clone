@@ -3,6 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import connectDB from "./config/db.js";
 import authRoutes from "./routes/authRoutes.js";
+import channelRoutes from "./routes/channelRoutes.js";
 
 dotenv.config();
 
@@ -15,6 +16,8 @@ app.use(express.json());
 
 
 app.use("/api/auth", authRoutes);
+app.use("/api/channels", channelRoutes);
+
 
 app.get("/", (req, res) => {
   res.send("YouTube Clone API Running...");
