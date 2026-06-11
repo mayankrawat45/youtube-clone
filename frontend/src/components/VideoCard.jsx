@@ -1,23 +1,23 @@
-const VideoCard = () => {
+const VideoCard = ({ video }) => {
   return (
     <div className="cursor-pointer">
       <img
-        src="https://picsum.photos/400/220"
-        alt="thumbnail"
-        className="w-full rounded-xl"
+        src={video.thumbnailUrl}
+        alt={video.title}
+        className="h-52 w-full rounded-xl object-cover"
       />
 
       <div className="mt-3">
         <h3 className="font-semibold">
-          Learn React in 30 Minutes
+          {video.title}
         </h3>
 
         <p className="text-sm text-gray-600">
-          Code With Mayank
+          {video.channelId?.channelName}
         </p>
 
         <p className="text-sm text-gray-600">
-          15K views
+          {video.views} views
         </p>
       </div>
     </div>
