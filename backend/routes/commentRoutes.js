@@ -4,6 +4,8 @@ import authMiddleware from "../middleware/authMiddleware.js";
 import {
   addComment,
   getComments,
+  updateComment,
+  deleteComment,
 } from "../controllers/commentController.js";
 
 const router = express.Router();
@@ -11,5 +13,9 @@ const router = express.Router();
 router.post("/", authMiddleware, addComment);
 
 router.get("/:videoId", getComments);
+
+router.put("/:id", authMiddleware, updateComment);
+
+router.delete("/:id", authMiddleware, deleteComment);
 
 export default router;
