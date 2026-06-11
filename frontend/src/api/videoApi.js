@@ -20,3 +20,8 @@ export const getVideosByCategory = async (category) => {
 
   return response.data;
 };
+
+export const getVideoById = async (id) => {
+  const response = await api.get(`/videos/${id}`);
+  return response.data;
+};
