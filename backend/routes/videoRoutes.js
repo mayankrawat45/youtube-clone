@@ -9,6 +9,9 @@ import {
   deleteVideo,
   likeVideo,
   dislikeVideo,
+  searchVideos,
+  filterVideosByCategory,
+  getMyChannelVideos,
 } from "../controllers/videoController.js";
 
 const router = express.Router();
@@ -16,6 +19,12 @@ const router = express.Router();
 router.post("/", authMiddleware, createVideo);
 
 router.get("/", getAllVideos);
+
+router.get("/search/title", searchVideos);
+
+router.get("/category/:category", filterVideosByCategory);
+
+router.get("/my/channel", authMiddleware, getMyChannelVideos);
 
 router.get("/:id", getVideoById);
 
@@ -26,5 +35,7 @@ router.delete("/:id", authMiddleware, deleteVideo);
 router.put("/:id/like", likeVideo);
 
 router.put("/:id/dislike", dislikeVideo);
+
+
 
 export default router;

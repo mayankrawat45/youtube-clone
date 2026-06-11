@@ -191,3 +191,63 @@ export const dislikeVideo = async (req, res) => {
     });
   }
 };
+
+
+export const searchVideos = async (req, res) => {
+  try {
+    const { query } = req.query;
+
+    const videos = await Video.find({
+      title: {
+        $regex: query,
+        $options: "i",
+      },
+    });
+
+    res.status(200).json(videos);
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+};
+
+
+export const filterVideosByCategory = async (req, res) => {
+  try {
+    const videos = await Video.find({
+      category: req.params.category,
+    });
+
+    res.status(200).json(videos);
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+};
+
+
+export const getMyChannelVideos = async (req, res) => {
+  try {
+    const channel = await Channel.findOne({
+      owner: req.user.id,
+    });
+
+    if (!channel) {
+      return res.status(404).json({
+        message: "Channel not found",
+      });
+    }
+
+    const videos = await Video.find({
+      channelId: channel._id,
+    });
+
+    res.status(200).json(videos);
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+};
