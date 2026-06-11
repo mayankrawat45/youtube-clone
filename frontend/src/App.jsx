@@ -1,9 +1,9 @@
-import React from 'react'
-
-const App = () => {
+function App() {
   return (
-    <div>App</div>
-  )
+    <div className="text-4xl font-bold text-center mt-20">
+      Tailwind Working
+    </div>
+  );
 }
 
-export default App
+export default App;
