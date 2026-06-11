@@ -25,3 +25,13 @@ export const getVideoById = async (id) => {
   const response = await api.get(`/videos/${id}`);
   return response.data;
 };
+
+export const likeVideo = async (id) => {
+  const response = await api.put(`/videos/${id}/like`);
+  return response.data;
+};
+
+export const dislikeVideo = async (id) => {
+  const response = await api.put(`/videos/${id}/dislike`);
+  return response.data;
+};
