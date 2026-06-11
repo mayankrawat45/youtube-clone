@@ -1,17 +1,26 @@
 import { useEffect, useState } from "react";
-
 import FilterBar from "../components/FilterBar";
 import VideoCard from "../components/VideoCard";
-
 import { getAllVideos } from "../api/videoApi";
+import { useSearch } from "../context/SearchContext";
+import { searchVideos } from "../api/videoApi";
 
 const Home = () => {
   const [videos, setVideos] = useState([]);
 
+  const { searchQuery } = useSearch();
+
   useEffect(() => {
     const fetchVideos = async () => {
       try {
-        const data = await getAllVideos();
+        let data;
+
+        if (searchQuery.trim()) {
+          data = await searchVideos(searchQuery);
+        } else {
+          data = await getAllVideos();
+        }
+
         setVideos(data);
       } catch (error) {
         console.log(error);
@@ -19,7 +28,7 @@ const Home = () => {
     };
 
     fetchVideos();
-  }, []);
+  }, [searchQuery]);
 
   return (
     <div>
