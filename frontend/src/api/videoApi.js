@@ -13,3 +13,10 @@ export const searchVideos = async (query) => {
   return response.data;
 };
 
+export const getVideosByCategory = async (category) => {
+  const response = await api.get(
+    `/videos/category/${category}`
+  );
+
+  return response.data;
+};

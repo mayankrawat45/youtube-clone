@@ -216,7 +216,10 @@ export const searchVideos = async (req, res) => {
 export const filterVideosByCategory = async (req, res) => {
   try {
     const videos = await Video.find({
-      category: req.params.category,
+      category: {
+        $regex: `^${req.params.category}$`,
+        $options: "i",
+      },
     });
 
     res.status(200).json(videos);
