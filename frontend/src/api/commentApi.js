@@ -28,3 +28,37 @@ export const addComment = async (
 
   return response.data;
 };
+
+export const updateComment = async (
+  commentId,
+  text,
+  token
+) => {
+  const response = await api.put(
+    `/comments/${commentId}`,
+    { text },
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+
+  return response.data;
+};
+
+export const deleteComment = async (
+  commentId,
+  token
+) => {
+  const response = await api.delete(
+    `/comments/${commentId}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+
+  return response.data;
+};

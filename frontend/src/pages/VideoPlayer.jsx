@@ -7,7 +7,12 @@ import {
   dislikeVideo,
 } from "../api/videoApi";
 
-import { getComments, addComment } from "../api/commentApi";
+import {
+  getComments,
+  addComment,
+  updateComment,
+  deleteComment,
+} from "../api/commentApi";
 import { useAuth } from "../context/AuthContext";
 
 const VideoPlayer = () => {
@@ -80,6 +85,19 @@ const VideoPlayer = () => {
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const handleDeleteComment = async (
+    commentId
+  ) => {
+    const token = localStorage.getItem("token");
+
+    await deleteComment(commentId, token);
+
+    const updatedComments =
+      await getComments(id);
+
+    setComments(updatedComments);
   };
 
   return (
@@ -160,9 +178,23 @@ const VideoPlayer = () => {
               key={comment._id}
               className="rounded-lg bg-gray-100 p-3"
             >
-              <p className="font-semibold">
-                {comment.userId?.username}
-              </p>
+              <div className="flex items-center justify-between">
+                <p className="font-semibold">
+                  {comment.userId?.username}
+                </p>
+
+                {user &&
+                  user.id === comment.userId?._id && (
+                    <button
+                      onClick={() =>
+                        handleDeleteComment(comment._id)
+                      }
+                      className="text-red-500"
+                    >
+                      Delete
+                    </button>
+                  )}
+              </div>
 
               <p>{comment.text}</p>
             </div>
