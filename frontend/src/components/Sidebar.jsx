@@ -14,7 +14,7 @@ const Sidebar = () => {
   ];
 
   return (
-    <aside className="w-52 h-[calc(100vh-56px)] border-r p-3">
+    <aside className="w-52 h-screen p-3">
       <ul className="space-y-3">
         <Link to="/">
           <li className="flex font-medium items-center gap-4 rounded-xl p-3 hover:bg-gray-100">

@@ -3,9 +3,16 @@ import { useEffect, useState } from "react";
 import { getMyVideos } from "../api/channelApi";
 import { deleteVideo } from "../api/videoApi";
 import { Link } from "react-router-dom";
+import { createChannel } from "../api/channelApi";
+
 
 const Channel = () => {
   const [videos, setVideos] = useState([]);
+  const [showCreateChannel, setShowCreateChannel] =
+    useState(false);
+
+  const [channelName, setChannelName] =
+    useState("");
 
   useEffect(() => {
     const fetchVideos = async () => {
@@ -19,6 +26,13 @@ const Channel = () => {
 
         setVideos(data);
       } catch (error) {
+        if (
+          error.response?.data?.message ===
+          "Channel not found"
+        ) {
+          setShowCreateChannel(true);
+        }
+
         console.log(error);
       }
     };
@@ -45,6 +59,52 @@ const Channel = () => {
     }
   };
 
+
+  const handleCreateChannel = async () => {
+  try {
+    const token =
+      localStorage.getItem("token");
+
+    await createChannel(
+      {
+        channelName,
+        description: "",
+      },
+      token
+    );
+
+    window.location.reload();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+if (showCreateChannel) {
+  return (
+    <div className="mx-auto max-w-md">
+      <h1 className="mb-6 text-3xl font-bold">
+        Create Channel
+      </h1>
+
+      <input
+        type="text"
+        placeholder="Channel Name"
+        value={channelName}
+        onChange={(e) =>
+          setChannelName(e.target.value)
+        }
+        className="mb-4 w-full rounded border p-2"
+      />
+
+      <button
+        onClick={handleCreateChannel}
+        className="rounded bg-blue-500 px-4 py-2 text-white"
+      >
+        Create Channel
+      </button>
+    </div>
+  );
+}
 
 
   return (

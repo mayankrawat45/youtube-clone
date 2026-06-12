@@ -154,7 +154,7 @@ const VideoPlayer = () => {
             <div className="flex items-center gap-3">
               <div className="flex h-12 w-12 items-center justify-center rounded-full bg-blue-500 font-semibold text-white">
                 {video.channelId?.channelName?.charAt(0).toUpperCase()}
-              </div>
+              </div>  
 
               <div>
                 <p className="text-lg font-semibold">
