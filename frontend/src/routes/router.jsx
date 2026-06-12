@@ -7,6 +7,7 @@ import Register from "../pages/Register";
 import VideoPlayer from "../pages/VideoPlayer";
 import Channel from "../pages/Channel";
 import UploadVideo from "../pages/UploadVideo";
+import EditVideo from "../pages/EditVideo";
 
 const router = createBrowserRouter([
   {
@@ -35,7 +36,11 @@ const router = createBrowserRouter([
       },
       {
         path: "upload",
-        element: <UploadVideo/>,
+        element: <UploadVideo />,
+      },
+      {
+        path: "edit-video/:id",
+        element: <EditVideo />,
       }
     ],
   },

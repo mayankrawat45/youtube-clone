@@ -69,3 +69,21 @@ export const createVideo = async (
 
   return response.data;
 };
+
+export const updateVideo = async (
+  id,
+  videoData,
+  token
+) => {
+  const response = await api.put(
+    `/videos/${id}`,
+    videoData,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+
+  return response.data;
+};
