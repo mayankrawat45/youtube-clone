@@ -1,12 +1,108 @@
-# React + Vite
+# YouTube Clone (MERN Stack)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Overview
 
-Currently, two official plugins are available:
+This project is a YouTube Clone built using the MERN Stack (MongoDB, Express.js, React.js, and Node.js). It allows users to register, log in, upload videos, manage channels, search videos, filter by categories, like/dislike videos, and interact through comments.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## Expanding the ESLint configuration
+### Authentication
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+* User Registration
+* User Login
+* JWT Authentication
+* Protected Routes
+* Logout Functionality
+
+### Video Management
+
+* Upload Videos
+* Edit Videos
+* Delete Videos
+* View Video Details
+* Like and Dislike Videos
+
+### Comments
+
+* Add Comments
+* Edit Comments
+* Delete Comments
+
+### Search & Filter
+
+* Search Videos by Title
+* Filter Videos by Category
+
+### Channel Management
+
+* View Uploaded Videos
+* Manage Uploaded Videos
+
+### User Interface
+
+* Responsive Design
+* YouTube-inspired Layout
+* Recommended Videos Section
+
+## Tech Stack
+
+### Frontend
+
+* React.js
+* React Router DOM
+* Tailwind CSS
+* Axios
+* React Icons
+
+### Backend
+
+* Node.js
+* Express.js
+* MongoDB
+* Mongoose
+* JWT Authentication
+* bcryptjs
+
+## Installation
+
+### Clone Repository
+
+```bash
+git clone <repository-url>
+```
+
+### Backend Setup
+
+```bash
+cd backend
+npm install
+npm run dev
+```
+
+### Frontend Setup
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+### Environment Variables
+
+Create a `.env` file in the backend folder:
+
+```env
+PORT=5000
+MONGOURI=your_mongodb_connection_string
+JWT_SECRET=your_secret_key
+```
+
+## Project Structure
+
+* Frontend (React + Tailwind CSS)
+* Backend (Node.js + Express.js)
+* MongoDB Database
+
+## Author
+
+Mayank Singh Rawat
