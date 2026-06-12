@@ -4,6 +4,10 @@
 
 This project is a YouTube Clone built using the MERN Stack (MongoDB, Express.js, React.js, and Node.js). It allows users to register, log in, upload videos, manage channels, search videos, filter by categories, like/dislike videos, and interact through comments.
 
+## Demo Video
+
+[Watch Demo Video](https://drive.google.com/file/d/1OaKj4Mv4UlH1ILoXHMmo27xjuit3mkcP/view?usp=sharing)
+
 ## Features
 
 ### Authentication
@@ -68,7 +72,7 @@ This project is a YouTube Clone built using the MERN Stack (MongoDB, Express.js,
 ### Clone Repository
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/mayankrawat45/youtube-clone.git
 ```
 
 ### Backend Setup
