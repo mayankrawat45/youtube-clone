@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
 import { getMyVideos } from "../api/channelApi";
+import { deleteVideo } from "../api/videoApi";
 
 const Channel = () => {
   const [videos, setVideos] = useState([]);
@@ -23,6 +24,25 @@ const Channel = () => {
 
     fetchVideos();
   }, []);
+
+  const handleDeleteVideo = async (
+    videoId
+  ) => {
+    try {
+      const token =
+        localStorage.getItem("token");
+
+      await deleteVideo(videoId, token);
+
+      setVideos((prev) =>
+        prev.filter(
+          (video) => video._id !== videoId
+        )
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div>
@@ -47,6 +67,15 @@ const Channel = () => {
             </h2>
 
             <p>{video.category}</p>
+
+            <button
+              onClick={() =>
+                handleDeleteVideo(video._id)
+              }
+              className="mt-3 rounded bg-red-500 px-3 py-1 text-white"
+            >
+              Delete
+            </button>
           </div>
         ))}
       </div>

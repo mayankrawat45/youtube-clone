@@ -35,3 +35,19 @@ export const dislikeVideo = async (id) => {
   const response = await api.put(`/videos/${id}/dislike`);
   return response.data;
 };
+
+export const deleteVideo = async (
+  videoId,
+  token
+) => {
+  const response = await api.delete(
+    `/videos/${videoId}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+
+  return response.data;
+};
