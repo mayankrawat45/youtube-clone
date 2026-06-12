@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 import { getMyVideos } from "../api/channelApi";
 import { deleteVideo } from "../api/videoApi";
+import { Link } from "react-router-dom"; 
 
 const Channel = () => {
   const [videos, setVideos] = useState([]);
@@ -44,12 +45,19 @@ const Channel = () => {
     }
   };
 
+
+
   return (
     <div>
       <h1 className="mb-6 text-3xl font-bold">
         My Channel
       </h1>
-
+      <Link
+  to="/upload"
+  className="mb-6 inline-block rounded bg-blue-500 px-4 py-2 text-white"
+>
+  Upload Video
+</Link>
       <div className="grid gap-6 md:grid-cols-3">
         {videos.map((video) => (
           <div
