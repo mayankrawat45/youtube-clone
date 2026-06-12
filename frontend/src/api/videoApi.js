@@ -51,3 +51,21 @@ export const deleteVideo = async (
 
   return response.data;
 };
+
+
+export const createVideo = async (
+  videoData,
+  token
+) => {
+  const response = await api.post(
+    "/videos",
+    videoData,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+
+  return response.data;
+};
