@@ -7,17 +7,26 @@ import {
   dislikeVideo,
 } from "../api/videoApi";
 
+import { getComments, addComment } from "../api/commentApi";
+import { useAuth } from "../context/AuthContext";
 
 const VideoPlayer = () => {
   const { id } = useParams();
 
   const [video, setVideo] = useState(null);
 
+  const [comments, setComments] = useState([]);
+  const [commentText, setCommentText] = useState("");
+
+  const { user } = useAuth();
+
   useEffect(() => {
     const fetchVideo = async () => {
       try {
         const data = await getVideoById(id);
         setVideo(data);
+        const commentData = await getComments(id);
+        setComments(commentData);
       } catch (error) {
         console.log(error);
       }
@@ -50,6 +59,27 @@ const VideoPlayer = () => {
     const updatedVideo = await getVideoById(id);
 
     setVideo(updatedVideo);
+  };
+
+  const handleCommentSubmit = async () => {
+    try {
+      const token = localStorage.getItem("token");
+
+      await addComment(
+        id,
+        commentText,
+        token
+      );
+
+      const updatedComments =
+        await getComments(id);
+
+      setComments(updatedComments);
+
+      setCommentText("");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -97,6 +127,47 @@ const VideoPlayer = () => {
 
       <div className="mt-4 rounded-lg bg-gray-100 p-4">
         <p>{video.description}</p>
+      </div>
+      <div className="mt-8">
+        <h2 className="mb-4 text-xl font-bold">
+          Comments
+        </h2>
+
+        {user && (
+          <div className="mb-6 flex gap-3">
+            <input
+              type="text"
+              value={commentText}
+              onChange={(e) =>
+                setCommentText(e.target.value)
+              }
+              placeholder="Add a comment..."
+              className="flex-1 rounded border p-2"
+            />
+
+            <button
+              onClick={handleCommentSubmit}
+              className="rounded bg-blue-500 px-4 py-2 text-white"
+            >
+              Post
+            </button>
+          </div>
+        )}
+
+        <div className="space-y-4">
+          {comments.map((comment) => (
+            <div
+              key={comment._id}
+              className="rounded-lg bg-gray-100 p-3"
+            >
+              <p className="font-semibold">
+                {comment.userId?.username}
+              </p>
+
+              <p>{comment.text}</p>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
