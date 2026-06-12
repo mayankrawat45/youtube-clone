@@ -23,6 +23,12 @@ const VideoPlayer = () => {
   const [comments, setComments] = useState([]);
   const [commentText, setCommentText] = useState("");
 
+  const [editingCommentId, setEditingCommentId] =
+    useState(null);
+
+  const [editText, setEditText] =
+    useState("");
+
   const { user } = useAuth();
 
   useEffect(() => {
@@ -100,6 +106,32 @@ const VideoPlayer = () => {
     setComments(updatedComments);
   };
 
+  const handleEditComment = async (
+  commentId
+) => {
+  try {
+    const token =
+      localStorage.getItem("token");
+
+    await updateComment(
+      commentId,
+      editText,
+      token
+    );
+
+    const updatedComments =
+      await getComments(id);
+
+    setComments(updatedComments);
+
+    setEditingCommentId(null);
+
+    setEditText("");
+  } catch (error) {
+    console.log(error);
+  }
+};
+
   return (
     <div className="max-w-5xl">
       <div className="aspect-video w-full">
@@ -175,29 +207,74 @@ const VideoPlayer = () => {
         <div className="space-y-4">
           {comments.map((comment) => (
             <div
-              key={comment._id}
-              className="rounded-lg bg-gray-100 p-3"
-            >
-              <div className="flex items-center justify-between">
-                <p className="font-semibold">
-                  {comment.userId?.username}
-                </p>
+  key={comment._id}
+  className="rounded-lg bg-gray-100 p-3"
+>
+  <div className="flex items-center justify-between">
+    <p className="font-semibold">
+      {comment.userId?.username}
+    </p>
 
-                {user &&
-                  user.id === comment.userId?._id && (
-                    <button
-                      onClick={() =>
-                        handleDeleteComment(comment._id)
-                      }
-                      className="text-red-500"
-                    >
-                      Delete
-                    </button>
-                  )}
-              </div>
+    {user &&
+      user.id === comment.userId?._id && (
+        <div className="flex gap-2">
+          <button
+            onClick={() => {
+              setEditingCommentId(
+                comment._id
+              );
 
-              <p>{comment.text}</p>
-            </div>
+              setEditText(
+                comment.text
+              );
+            }}
+            className="text-blue-500"
+          >
+            Edit
+          </button>
+
+          <button
+            onClick={() =>
+              handleDeleteComment(
+                comment._id
+              )
+            }
+            className="text-red-500"
+          >
+            Delete
+          </button>
+        </div>
+      )}
+  </div>
+
+  {editingCommentId ===
+  comment._id ? (
+    <div className="mt-2 flex gap-2">
+      <input
+        value={editText}
+        onChange={(e) =>
+          setEditText(
+            e.target.value
+          )
+        }
+        className="flex-1 rounded border p-2"
+      />
+
+      <button
+        onClick={() =>
+          handleEditComment(
+            comment._id
+          )
+        }
+        className="rounded bg-green-500 px-3 py-1 text-white"
+      >
+        Save
+      </button>
+    </div>
+  ) : (
+    <p>{comment.text}</p>
+  )}
+</div>
           ))}
         </div>
       </div>
