@@ -1,4 +1,9 @@
 import { Link } from "react-router-dom";
+import {
+  MdHome,
+  MdSubscriptions,
+} from "react-icons/md";
+
 const Sidebar = () => {
   const menuItems = [
     "Home",
@@ -9,16 +14,18 @@ const Sidebar = () => {
   ];
 
   return (
-    <aside className="w-60 h-[calc(100vh-56px)] border-r p-4">
+    <aside className="w-52 h-[calc(100vh-56px)] border-r p-3">
       <ul className="space-y-3">
         <Link to="/">
-          <li className="cursor-pointer rounded-lg p-2 hover:bg-gray-100">
+          <li className="flex font-medium items-center gap-4 rounded-xl p-3 hover:bg-gray-100">
+            <MdHome size={24} />
             Home
           </li>
         </Link>
 
         <Link to="/channel">
-          <li className="cursor-pointer rounded-lg p-2 hover:bg-gray-100">
+          <li className="flex font-medium items-center gap-4 rounded-xl p-3 hover:bg-gray-100">
+            <MdSubscriptions size={24} />
             My Channel
           </li>
         </Link>

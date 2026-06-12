@@ -7,6 +7,7 @@ import { searchVideos } from "../api/videoApi";
 
 const Home = () => {
   const [videos, setVideos] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const { searchQuery } = useSearch();
 
@@ -15,8 +16,8 @@ const Home = () => {
   useEffect(() => {
     const fetchVideos = async () => {
       try {
+        setLoading(true);
         let data;
-
         if (searchQuery.trim()) {
           data = await searchVideos(searchQuery);
         } else if (selectedCategory !== "All") {
@@ -28,12 +29,23 @@ const Home = () => {
         }
 
         setVideos(data);
+        setLoading(false);
       } catch (error) {
         console.log(error);
       }
     };
     fetchVideos();
   }, [searchQuery, selectedCategory]);
+
+  if (loading) {
+    return (
+      <div className="flex h-64 items-center justify-center">
+        <p className="text-lg text-gray-500">
+          Loading videos...
+        </p>
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -42,7 +54,7 @@ const Home = () => {
         setSelectedCategory={setSelectedCategory}
       />
 
-      <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      <div className="mt-6 grid gap-x-4 gap-y-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {videos.map((video) => (
           <VideoCard
             key={video._id}
